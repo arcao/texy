@@ -20,7 +20,7 @@ $i18n = ['lang'=>1,'dir'=>1,'xml:lang'=>1]; // extra: xml:lang
 $attrs = $coreattrs + $i18n + ['onclick'=>1,'ondblclick'=>1,'onmousedown'=>1,'onmouseup'=>1,
 	'onmouseover'=>1, 'onmousemove'=>1,'onmouseout'=>1,'onkeypress'=>1,'onkeydown'=>1,'onkeyup'=>1];
 if ($mode & Texy::HTML5) {
-	$attrs += ['data-*'=>1];
+	$attrs += ['data-*'=>1, 'role'=>1];
 }
 $cellalign = $attrs + ['align'=>1,'char'=>1,'charoff'=>1,'valign'=>1];
 
@@ -51,6 +51,16 @@ if (!$strict) {
 	];
 }
 
+if ($mode & Texy::HTML5) {
+	$b += [
+		'article'=>1,'aside'=>1,'audio'=>1,'details'=>1,'figure'=>1,
+    'footer'=>1,'header'=>1,'main'=>1,'nav'=>1,'section'=>1,'video'=>1
+	];
+
+	$i += [
+		'mark'=>1,'time'=>1,
+	];
+}
 
 $bi = $b + $i;
 
@@ -374,11 +384,88 @@ $dtd = [
 ],
 ];
 
-
 if ($strict) {
 	return $dtd;
 }
 
+if ($mode & Texy::HTML5) {
+  $dtd['%BASE'][1] += ['!doctype'=>1];
+  $dtd['meta'][0] += ['charset'=>1];
+  $dtd['input'][0] += ['placeholder'=>1];
+  $dtd['textarea'][0] += ['placeholder'=>1];
+
+
+  $dtd += [
+  '!doctype' => [
+  	['html'=>1],
+  	FALSE,
+  ],
+  'article' => [
+  	$attrs,
+  	$bi,
+  ],
+  'aside' => [
+  	$attrs,
+  	$bi,
+  ],
+  'audio' => [
+  	$attrs + ['autoplay'=>1,'controls'=>1,'loop'=>1,'muted'=>1,'preload'=>1,'src'=>1],
+  	$bi + ['source'=>1],
+  ],
+  'details' => [
+  	$attrs + ['open'=>1],
+  	$bi + ['summary'=>1],
+  ],
+  'figure' => [
+  	$attrs,
+  	$bi + ['figcaption'=>1],
+  ],
+  'figcaption' => [
+  	$attrs,
+  	$bi,
+  ],
+  'footer' => [
+  	$attrs,
+  	$bi,
+  ],
+  'header' => [
+  	$attrs,
+  	$bi,
+  ],
+  'main' => [
+  	$attrs,
+  	$bi,
+  ],
+  'mark' => [
+  	$attrs,
+  	$i,
+  ],
+  'nav' => [
+  	$attrs,
+  	$bi,
+  ],
+  'section' => [
+  	$attrs,
+  	$bi,
+  ],
+  'source' => [
+  	$attrs + ['src'=>1,'srcset'=>1,'media'=>1,'sizes'=>1,'type'=>1],
+  	FALSE,
+  ],
+  'summary' => [
+  	$attrs,
+  	$bi,
+  ],
+  'time' => [
+  	$attrs + ['datetime'=>1],
+  	$i,
+  ],
+  'video' => [
+  	$attrs + ['autoplay'=>1,'controls'=>1,'height'=>1,'loop'=>1,'muted'=>1,'preload'=>1,'src'=>1,'width'=>1],
+  	$bi + ['source'=>1],
+  ],
+  ];
+}
 
 // LOOSE DTD
 $dtd += [

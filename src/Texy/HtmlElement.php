@@ -49,6 +49,7 @@ class HtmlElement implements \ArrayAccess, /* Countable, */ \IteratorAggregate
 		'map'=>0,'input'=>1,'select'=>1,'textarea'=>1,'label'=>0,'button'=>1,
 		'u'=>0,'s'=>0,'strike'=>0,'font'=>0,'applet'=>1,'basefont'=>0, // transitional
 		'embed'=>1,'wbr'=>0,'nobr'=>0,'canvas'=>1, // proprietary
+    'mark'=>0, 'time'=>0, // html5 elements
 	];
 
 	/** @var array  elements with optional end tag in HTML */
