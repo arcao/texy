@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Texy! (http://texy.info)
+ * This file is part of the Texy! (https://texy.info)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
@@ -85,9 +85,9 @@ final class HtmlOutputModule extends Texy\Module
 		$s = strtr($s, "\r", "\n");
 
 		// greedy chars
-		$s = Regexp::replace($s, '#\\x07 *#', '');
+		$s = Regexp::replace($s, '#\x07 *#', '');
 		// back-tabs
-		$s = Regexp::replace($s, '#\\t? *\\x08#', '');
+		$s = Regexp::replace($s, '#\t? *\x08#', '');
 
 		// line wrap
 		if ($this->lineWrap > 0) {
@@ -100,7 +100,7 @@ final class HtmlOutputModule extends Texy\Module
 
 		// remove HTML 4.01 optional end tags
 		if ($this->removeOptional) {
-			$s = Regexp::replace($s, '#\\s*</(colgroup|dd|dt|li|option|p|td|tfoot|th|thead|tr)>#u', '');
+			$s = Regexp::replace($s, '#\s*</(colgroup|dd|dt|li|option|p|td|tfoot|th|thead|tr)>#u', '');
 		}
 	}
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Texy! (http://texy.info)
+ * This file is part of the Texy! (https://texy.info)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
@@ -468,3 +468,5 @@ $dtd['td'][0] += ['nowrap'=>1,'bgcolor'=>1,'width'=>1,'height'=>1];
 $dtd['th'][0] += ['nowrap'=>1,'bgcolor'=>1,'width'=>1,'height'=>1];
 
 // missing: FRAMESET, FRAME, BGSOUND, XMP, ...
+
+return $dtd;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Texy! (http://texy.info)
+ * This file is part of the Texy! (https://texy.info)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
@@ -209,7 +209,7 @@ class Texy
 		$this->setOutputMode(self::HTML5);
 
 		// examples of link references ;-)
-		$link = new Link('http://texy.info/');
+		$link = new Link('https://texy.info/');
 		$link->modifier->title = 'The best text -> HTML converter and formatter';
 		$link->label = 'Texy!';
 		$this->linkModule->addReference('texy', $link);
@@ -234,8 +234,7 @@ class Texy
 		}
 
 		if (!self::$dtdCache) {
-			require __DIR__ . '/DTD.php';
-			self::$dtdCache = $dtd;
+			self::$dtdCache = require __DIR__ . '/DTD.php';
 		}
 
 		$this->dtd = self::$dtdCache;
@@ -316,7 +315,7 @@ class Texy
 			throw new \InvalidArgumentException("Handler '$textual' is not " . ($able ? 'callable.' : 'valid PHP callback.'));
 		}
 
-		// if (!preg_match('#(.)\^.*\$\\1[a-z]*#is', $pattern)) die("Texy: Not a block pattern $name");
+		// if (!preg_match('#(.)\^.*\$\1[a-z]*#is', $pattern)) die("Texy: Not a block pattern $name");
 		if (!isset($this->allowed[$name])) {
 			$this->allowed[$name] = TRUE;
 		}
@@ -525,7 +524,7 @@ class Texy
 		$this->htmlOutputModule->lineWrap = $save;
 
 		// remove tags
-		$s = Regexp::replace($s, '#<(script|style)(.*)</\\1>#Uis', '');
+		$s = Regexp::replace($s, '#<(script|style)(.*)</\1>#Uis', '');
 		$s = strip_tags($s);
 		$s = Regexp::replace($s, '#\n\s*\n\s*\n[\n\s]*\n#', "\n\n");
 

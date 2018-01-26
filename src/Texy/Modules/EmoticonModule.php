@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Texy! (http://texy.info)
+ * This file is part of the Texy! (https://texy.info)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
@@ -63,7 +63,7 @@ final class EmoticonModule extends Texy\Module
 
 		$this->texy->registerLinePattern(
 			[$this, 'pattern'],
-			'#(?<=^|[\\x00-\\x20])(' . implode('|', $pattern) . ')#',
+			'#(?<=^|[\x00-\x20])(' . implode('|', $pattern) . ')#',
 			'emoticon',
 			'#' . implode('|', $pattern) . '#'
 		);

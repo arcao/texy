@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Texy! (http://texy.info)
+ * This file is part of the Texy! (https://texy.info)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
@@ -101,10 +101,10 @@ trait Strict
 	private static function getSuggestion(array $items, $value)
 	{
 		$best = NULL;
-		$min = (int) (strlen($value) / 4) + 2;
-		foreach ($items as $item) {
+		$min = (strlen($value) / 4 + 1) * 10 + .1;
+		foreach (array_unique($items, SORT_REGULAR) as $item) {
 			$item = is_object($item) ? $item->getName() : $item;
-			if (($len = levenshtein($item, $value)) > 0 && $len < $min) {
+			if (($len = levenshtein($item, $value, 10, 11, 10)) > 0 && $len < $min) {
 				$min = $len;
 				$best = $item;
 			}

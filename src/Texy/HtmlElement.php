@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Texy! (http://texy.info)
+ * This file is part of the Texy! (https://texy.info)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
@@ -530,10 +530,6 @@ class HtmlElement implements \ArrayAccess, /* Countable, */ \IteratorAggregate
 	 */
 	final public function parseLine(Texy $texy, $s)
 	{
-		// TODO!
-		// special escape sequences
-		$s = str_replace(['\)', '\*'], ['&#x29;', '&#x2A;'], $s);
-
 		$parser = new LineParser($texy, $this);
 		$parser->parse($s);
 		return $parser;
