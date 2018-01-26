@@ -9,7 +9,7 @@ namespace Texy;
 
 
 /**
- * Texy! - Convert plain text to XHTML format using {@link process()}.
+ * Texy! - Convert plain text to HTML format using {@link process()}.
  *
  * <code>
  * $texy = new Texy();
@@ -38,16 +38,14 @@ class Texy
 	const FILTER_ANCHOR = 'anchor';
 	const FILTER_IMAGE = 'image';
 
-	// HTML minor-modes
-	const XML = 2;
-
-	// HTML modes
+	// depecated
 	const HTML4_TRANSITIONAL = 0;
 	const HTML4_STRICT = 1;
 	const HTML5 = 4;
-	const XHTML1_TRANSITIONAL = 2; // Texy::HTML4_TRANSITIONAL | Texy::XML;
-	const XHTML1_STRICT = 3; // Texy::HTML4_STRICT | Texy::XML;
-	const XHTML5 = 6; // Texy::HTML5 | Texy::XML;
+	const XHTML1_TRANSITIONAL = 2;
+	const XHTML1_STRICT = 3;
+	const XHTML5 = 6;
+	const XML = 2;
 
 	/** @var array  Texy! syntax configuration */
 	public $allowed = [];
@@ -77,11 +75,7 @@ class Texy
 	public $summary = [
 		'images' => [],
 		'links' => [],
-		'preload' => [],
 	];
-
-	/** @var string  Generated stylesheet */
-	public $styleSheet = '';
 
 	/** @var array  CSS classes for align modifiers */
 	public $alignClasses = [
@@ -198,9 +192,6 @@ class Texy
 	/** @var array */
 	private static $dtdCache;
 
-	/** @var int  HTML mode */
-	private $mode;
-
 
 	public function __construct()
 	{
@@ -215,7 +206,7 @@ class Texy
 
 		$this->loadModules();
 
-		$this->setOutputMode(self::XHTML1_TRANSITIONAL);
+		$this->setOutputMode(self::HTML5);
 
 		// examples of link references ;-)
 		$link = new Link('https://texy.info/');
@@ -232,25 +223,21 @@ class Texy
 
 
 	/**
-	 * Set HTML/XHTML output mode (overwrites self::$allowedTags)
+	 * Set HTML output mode (overwrites self::$allowedTags)
 	 * @param  int
 	 * @return void
 	 */
 	public function setOutputMode($mode)
 	{
-		if (!in_array($mode, [self::HTML4_TRANSITIONAL, self::HTML4_STRICT,
-			self::HTML5, self::XHTML1_TRANSITIONAL, self::XHTML1_STRICT, self::XHTML5], TRUE)
-		) {
-			throw new \InvalidArgumentException('Invalid mode.');
+		if ($mode !== self::HTML5) {
+			trigger_error('Texy::setOutputMode() is deprecated, only HTML5 mode is supported.', E_USER_DEPRECATED);
 		}
 
-		if (!isset(self::$dtdCache[$mode])) {
-			self::$dtdCache[$mode] = require __DIR__ . '/DTD.php';
+		if (!self::$dtdCache) {
+			self::$dtdCache = require __DIR__ . '/DTD.php';
 		}
 
-		$this->mode = $mode;
-		$this->dtd = self::$dtdCache[$mode];
-		HtmlElement::$xhtml = (bool) ($mode & self::XML); // TODO: remove?
+		$this->dtd = self::$dtdCache;
 
 		// accept all valid HTML tags and attributes by default
 		$this->allowedTags = [];
@@ -261,12 +248,13 @@ class Texy
 
 
 	/**
-	 * Get HTML/XHTML output mode
+	 * Get HTML output mode
 	 * @return int
 	 */
 	public function getOutputMode()
 	{
-		return $this->mode;
+		trigger_error('Texy::getOutputMode() is deprecated, only HTML5 mode is supported.', E_USER_DEPRECATED);
+		return self::HTML5;
 	}
 
 

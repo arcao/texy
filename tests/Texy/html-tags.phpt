@@ -35,10 +35,9 @@ Assert::matchFile(
 	$texy->process(file_get_contents(__DIR__ . '/sources/html-tags1.texy'))
 );
 
-$texy = createTexy();
 Assert::matchFile(
 	__DIR__ . '/expected/html-tags2.html',
-	$texy->process(file_get_contents(__DIR__ . '/sources/html-tags2.texy'))
+	createTexy()->process(file_get_contents(__DIR__ . '/sources/html-tags2.texy'))
 );
 
 Assert::matchFile(

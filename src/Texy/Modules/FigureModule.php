@@ -25,9 +25,6 @@ final class FigureModule extends Texy\Module
 	/** @var string  right-floated box CSS class */
 	public $rightClass;
 
-	/** @var int|FALSE  how calculate div's width */
-	public $widthDelta = 10;
-
 
 	public function __construct($texy)
 	{
@@ -66,7 +63,7 @@ final class FigureModule extends Texy\Module
 
 		if ($mLink) {
 			if ($mLink === ':') {
-				$link = new Texy\Link($image->linkedURL === NULL ? $image->URL : $image->linkedURL);
+				$link = new Texy\Link($image->URL);
 				$link->raw = ':';
 				$link->type = $link::IMAGE;
 			} else {
@@ -97,9 +94,6 @@ final class FigureModule extends Texy\Module
 		}
 
 		$el = new Texy\HtmlElement('div');
-		if (!empty($image->width) && $this->widthDelta !== FALSE) {
-			$el->attrs['style']['width'] = ($image->width + $this->widthDelta) . 'px';
-		}
 		$mod->decorate($texy, $el);
 
 		$el[0] = $elImg;
